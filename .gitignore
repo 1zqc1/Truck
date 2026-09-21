@@ -1,0 +1,75 @@
+# Codex / editor local state
+.obsidian/
+.vscode/
+.idea/
+*.tmp
+*.temp
+*.bak
+*.autosave
+~$*
+
+# Secrets and machine-local configuration
+.env
+.env.*
+*.key
+*.pem
+*token*
+*credentials*
+
+# Raw and legacy research data (kept locally, not versioned)
+raw/
+07_历史数据_仅审计不可作新论文证据/
+02_文献与证据/全文抽取记录/
+09_五自由度新研究数据/
+
+# Fluent / ANSYS / Workbench generated or large artifacts
+*.cas
+*.cas.h5
+*.dat.h5
+*.msh
+*.mshdb
+*.pmdb
+*.acmo
+*.scdoc
+*.wbpj
+*.wbdp
+*_files/
+libudf/
+*.out
+
+# Compiled binaries
+*.dll
+*.exe
+*.obj
+*.lib
+*.pdb
+
+# MATLAB / Simulink generated data and caches
+*.mat
+slprj/
+codegen/
+*.slxc
+*.mexw64
+
+# TruckSim generated result files
+*.vsb
+*.log
+LastRun*
+Run_out*
+
+# Python / Node caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+node_modules/
+
+# Office and rendered artifacts; keep source Markdown/code in Git
+*.docx
+*.xlsx
+*.pdf
+
+# Operating-system metadata
+Thumbs.db
+Desktop.ini
+.DS_Store
+

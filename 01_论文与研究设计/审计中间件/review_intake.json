@@ -1,0 +1,67 @@
+{
+  "schema_version": "2.0",
+  "review_id": "REVIEW-TANKER-PROPOSAL-2026-09-10",
+  "material": {
+    "status": "unpublished_confidential",
+    "contains_personal_or_sensitive_data": false
+  },
+  "authorization": {
+    "basis": "author_request",
+    "documented": true,
+    "local_processing_authorized": true,
+    "external_processing_authorized": false
+  },
+  "reviewer": {
+    "capacity": "author_requested_reader",
+    "human_accountable": true,
+    "competence_areas": [
+      "vehicle_dynamics",
+      "computational_fluid_dynamics",
+      "predictive_model_evaluation",
+      "scientific_reproducibility"
+    ],
+    "competence_limits": [
+      "physical_test_rig_safety_certification",
+      "official_cas_journal_partition_verification"
+    ],
+    "conflict_status": "none_identified",
+    "conflicts": []
+  },
+  "venue_policy": {
+    "checked": true,
+    "peer_review_model": "single_anonymized",
+    "confidential_editor_notes_supported": false
+  },
+  "ai_use": {
+    "policy": "permitted_with_disclosure",
+    "planned": "approved_ai_assistance",
+    "permission_confirmed": true,
+    "disclosure_planned": true
+  },
+  "handling": {
+    "local_only": true,
+    "external_service_use": false,
+    "data_reuse_permitted": false,
+    "retention_rule": "retain_per_venue_policy",
+    "deletion_or_retention_record_planned": true
+  },
+  "scope": {
+    "manuscript_type": "research_proposal",
+    "requested_focus": [
+      "feasibility",
+      "novelty",
+      "methods",
+      "statistics",
+      "reproducibility"
+    ],
+    "out_of_scope": [
+      "editorial_acceptance_decision",
+      "equipment_safety_certification",
+      "official_cas_partition_certification"
+    ],
+    "specialist_review_needed": [
+      "experimental_rig_structural_safety",
+      "commercial_vehicle_parameter_validation"
+    ]
+  }
+}

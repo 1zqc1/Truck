@@ -1,0 +1,984 @@
+{
+  "desktop_files": [
+    {
+      "file": "01李明桃 等 - 2022 - 半挂汽车侧翻预警算法研究综述.pdf",
+      "bytes": 1570117,
+      "sha256": "c628f8a118460d9df4652438b010265dc7910ac5457ca0f98034297ba67ad452",
+      "exact_match": "L39 FJHQK8PR"
+    },
+    {
+      "file": "02贾心红 等 - 2022 - 半挂式液罐车罐内液体晃动及其对整车侧翻稳定性影响研究现状.pdf",
+      "bytes": 1218596,
+      "sha256": "2fec88264f07a7cae7d9a3ea2a5cf0a395ba75f7541c552cc37b85b60c7a4c9d",
+      "exact_match": "L41 54BQY67N"
+    },
+    {
+      "file": "03周兵 等 - 2023 - 基于LSTM和改进TTR算法的车辆辅助驾驶侧翻预警.pdf",
+      "bytes": 1654301,
+      "sha256": "e93be5d8325086fd576b107e8b5380475641fdd71ddf4c5e7018f220e1259e76",
+      "exact_match": "L13 D35X527C"
+    },
+    {
+      "file": "04高震宏 等 - 2025 - 基于LTR与TTRW的载货车辆侧翻预警算法研究.pdf",
+      "bytes": 1111842,
+      "sha256": "f5c3fc99477471c04e0badd8a0d1d521661a1b7abda3c23c85e6a09200d951ad",
+      "exact_match": null
+    },
+    {
+      "file": "05Nguyen, Xuan Ngoc, and Tien Phuc Dang. Rollover stability analysis of liquid tank truck taking into account the road profiles..pdf",
+      "bytes": 2721276,
+      "sha256": "6a80b7a15e0c133ca77f8c9201065b8fb77181ec756d8af88eb816abd1b0bf1c",
+      "exact_match": "L32 WPP94BTR"
+    },
+    {
+      "file": "06Zheng 等 - 2025 - Modeling of tank vehicle rollover risk assessment on curved–slope combination sections for sustainab.pdf",
+      "bytes": 3271245,
+      "sha256": "318e5f62bf1434cb595b5d52906437524c1cad8eb8cd46cf6cbf0ad5f5301b39",
+      "exact_match": "L46 6RTYM49Q"
+    },
+    {
+      "file": "07Hochreiter和Schmidhuber - 1997 - Long short-term memory.pdf",
+      "bytes": 242870,
+      "sha256": "b0231300e5e7dc9adb1ad9c7c5b31f1e9c4ba1713a1d4fa55bdbdd75fd571052",
+      "exact_match": "L34 XLBH9MC7"
+    },
+    {
+      "file": "08Basar - 2001 - A new approach to linear filtering and prediction problems.pdf",
+      "bytes": 3695,
+      "sha256": "2060773827f8448a7f688efac1373bfe8698b1c13b95209ea4f9477fd41f022c",
+      "exact_match": "L35 ZSVXP9GW"
+    },
+    {
+      "file": "09Julier和Uhlmann - 2004 - Unscented filtering and nonlinear estimation.pdf",
+      "bytes": 652362,
+      "sha256": "b38d730bf70c547a91ba819a5f6b45b873a7a3cc25daa0fb6126ced2a446bf89",
+      "exact_match": "L36 5DK6EXHW"
+    },
+    {
+      "file": "10邹志亮 - 2022 - 液罐车流固模型建立与防侧翻控制研究.pdf",
+      "bytes": 5861289,
+      "sha256": "a265fd2d5704682d281ab23f3dcd232b6e20ee9e809fd601e766e848d4d68033",
+      "exact_match": "L06 AENU7WAY"
+    },
+    {
+      "file": "11朱铖伟 - 2025 - 罐式半挂车罐内液体晃动特性与整车防侧翻控制研究.pdf",
+      "bytes": 9802074,
+      "sha256": "1341daa3f0dbd21f37de659400e50d7ab7bdbd500045a8a2f45b2e3b882c690e",
+      "exact_match": "L19 WRVLQ349"
+    },
+    {
+      "file": "12徐晓东 等 - 2024 - 汽车罐车侧翻临界值研究.pdf",
+      "bytes": 2494286,
+      "sha256": "e64a783ea5cd2f5cdfc82cd5336ea65c2ab252fcf3ee6feac9c2f3f5ac659f6f",
+      "exact_match": "L11 9KWRWKFC"
+    },
+    {
+      "file": "13汪佳铭 等 - 2024 - 基于CNN-LSTM的重型自卸车侧翻预警模型.pdf",
+      "bytes": 745416,
+      "sha256": "465cfbd7bf9fdddd32fbb49480c311e0027f6dbe19f9287daae5231a1d09d353",
+      "exact_match": "L42 6Y4N22PU"
+    },
+    {
+      "file": "14潘可贤 等 - 2025 - 基于车-路协同感知的罐车侧翻两阶段预警方法.pdf",
+      "bytes": 1308749,
+      "sha256": "d6866e225e30da1fb6be9107efa1a583f9ce34e1fa8265123e1dffa343550f9b",
+      "exact_match": "L01 RSP6W5HF"
+    },
+    {
+      "file": "15Cammarata 等 - 2011 - Load movement control system for rollover risk reduction of tanker trucks.pdf",
+      "bytes": 1258005,
+      "sha256": "869e6f6e736525ff78004958e79025a4f7b4521a0967dc7b1312b9e1c31a3f41",
+      "exact_match": "L30 76A4UCYH"
+    },
+    {
+      "file": "16Larish 等 - 2013 - A new predictive lateral load transfer ratio for rollover prevention systems.pdf",
+      "bytes": 1577628,
+      "sha256": "7015bd87f518de61b08b0ff0c48f3d492450a273dea46684e53df29de445d611",
+      "exact_match": "L33 3S9KUF7S"
+    },
+    {
+      "file": "17Yang 等 - 2013 - An overview on vehicle dynamics.pdf",
+      "bytes": 425825,
+      "sha256": "e507c797b0769a4dea2f6f334b3dad35524e1d9ed5d213896bb5683b06c42a80",
+      "exact_match": "L38 N2CB3MAW"
+    },
+    {
+      "file": "18郭春港 - 2024 - 智能客车侧翻评估及防侧翻控制技术研究.pdf",
+      "bytes": 5015961,
+      "sha256": "833c7d78b7e751817330766bb96a80c24eaaccd5b84bd8ca5ea09b85509df77a",
+      "exact_match": "L23 A5LY7HCD"
+    },
+    {
+      "file": "19吴海啸 - 2025 - 考虑行驶风险预测的重型车辆主动防侧翻控制.pdf",
+      "bytes": 13919212,
+      "sha256": "520b4ecfea880ce36ea411f31d92a5a2ced17a825c874e63933524de4f737dc9",
+      "exact_match": "L04 BVP2JRBZ"
+    },
+    {
+      "file": "20罗文广和徐鸿飞 - 2025 - 重型车辆防侧翻智能混合控制研究.pdf",
+      "bytes": 1167639,
+      "sha256": "cb295b19704c1b90982756a48029a243bddb2b3379802cfbaafbcfc48693ed6a",
+      "exact_match": "L15 Y96AF7WQ"
+    },
+    {
+      "file": "21汪佳铭 - 2025 - 基于LSTM预警算法的自卸车行驶侧翻预警与防侧翻控制研究.pdf",
+      "bytes": 3965026,
+      "sha256": "300b86f59b98a07609f6293d5e98049094d458a53298f8429dfdb6d72ef3dbe4",
+      "exact_match": "L16 GPZ7RTJT"
+    },
+    {
+      "file": "22陈天淦 - 2025 - 全挂汽车列车侧倾稳定性分析与防侧翻控制研究.pdf",
+      "bytes": 8428561,
+      "sha256": "9db2afc6b1dab498f80e6debc5cf032bd928b196c594275f550908385cb26790",
+      "exact_match": "L22 DSSB5BJZ"
+    },
+    {
+      "file": "23杨笑涵 - 2024 - 基于差动制动与主动悬架的三轴救援车辆防侧翻控制研究.pdf",
+      "bytes": 8355258,
+      "sha256": "1fcb2f93d86b98f785720d846da4b84c7b5aed6a3087acd227e233cbeaaaa309",
+      "exact_match": "L27 TSQ28XMX"
+    },
+    {
+      "file": "24李胜超 - 2022 - 基于差动制动的客车侧翻预警及防侧翻控制研究.pdf",
+      "bytes": 11665732,
+      "sha256": "102402e61969efe7c158860ee442b868e6162805da671efe5b9ba9453eead174",
+      "exact_match": "L07 KVBZU8LP"
+    },
+    {
+      "file": "25付林凯和金智林 - 2023 - 自适应多种群遗传优化的SUV防侧翻控制方法.pdf",
+      "bytes": 2225314,
+      "sha256": "fcba3b65456fd357e22f168cd32bc6f0051ce1c9fbc2cf46e8fe1c7f8816788d",
+      "exact_match": "L26 SEQPKGEV"
+    },
+    {
+      "file": "26康小鹏 等 - 2022 - 利用车辆状态估计的客车防侧翻控制.pdf",
+      "bytes": 1471469,
+      "sha256": "557d4f2a0b01654b4d0f7cc6c528614965e3f8259233599906b2581cbafcfdc8",
+      "exact_match": "L03 SF2K29Y5"
+    }
+  ],
+  "csv": [
+    {
+      "file": "ts_data.csv",
+      "rows": 1001,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.02500000000000213,
+      "end_s": 25.0,
+      "columns": [
+        "Time",
+        "Vx_kmh",
+        "Roll_E_deg",
+        "Roll_E2_deg",
+        "Yaw_deg",
+        "Yaw2_deg",
+        "Pitch_deg",
+        "Ax_g",
+        "Fz_L1_N",
+        "Fz_L2_N",
+        "Fz_R1_N",
+        "Fz_R2_N",
+        "Xo_m",
+        "Yo_m"
+      ]
+    },
+    {
+      "file": "ts_dlc100_lowmu.csv",
+      "rows": 401,
+      "dt_median": 0.025000000000000022,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 10.0,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2",
+        "Ay_2",
+        "Yaw",
+        "Yaw_2"
+      ]
+    },
+    {
+      "file": "ts_dlc70.csv",
+      "rows": 481,
+      "dt_median": 0.025000000000000244,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 12.0,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E",
+        "Roll_E_2",
+        "Yaw",
+        "Yaw_2",
+        "Pitch",
+        "Ax",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2",
+        "Xo",
+        "Yo"
+      ]
+    },
+    {
+      "file": "ts_fishhook_60_150deg.csv",
+      "rows": 601,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 15.0,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2"
+      ]
+    },
+    {
+      "file": "ts_fishhook_60_200deg.csv",
+      "rows": 541,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 13.5,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2"
+      ]
+    },
+    {
+      "file": "ts_fishhook_60_270deg.csv",
+      "rows": 533,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 13.3,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2"
+      ]
+    },
+    {
+      "file": "ts_fishhook_60_90deg.csv",
+      "rows": 601,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 15.0,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2"
+      ]
+    },
+    {
+      "file": "ts_fishhook_70_150deg.csv",
+      "rows": 533,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 13.3,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2"
+      ]
+    },
+    {
+      "file": "ts_fishhook_70_200deg.csv",
+      "rows": 525,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 13.1,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2"
+      ]
+    },
+    {
+      "file": "ts_fishhook_70_270deg.csv",
+      "rows": 518,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 12.925,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2"
+      ]
+    },
+    {
+      "file": "ts_fishhook_70_90deg.csv",
+      "rows": 601,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 15.0,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2"
+      ]
+    },
+    {
+      "file": "ts_fishhook_80_150deg.csv",
+      "rows": 522,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 13.025,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2"
+      ]
+    },
+    {
+      "file": "ts_fishhook_80_200deg.csv",
+      "rows": 516,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 12.875,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2"
+      ]
+    },
+    {
+      "file": "ts_fishhook_80_270deg.csv",
+      "rows": 515,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 12.85,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2"
+      ]
+    },
+    {
+      "file": "ts_fishhook_80_90deg.csv",
+      "rows": 601,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 15.0,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2"
+      ]
+    },
+    {
+      "file": "ts_fishhook_90_150deg.csv",
+      "rows": 514,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 12.825,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2"
+      ]
+    },
+    {
+      "file": "ts_fishhook_90_200deg.csv",
+      "rows": 509,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 12.7,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2"
+      ]
+    },
+    {
+      "file": "ts_fishhook_90_270deg.csv",
+      "rows": 515,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 12.85,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2"
+      ]
+    },
+    {
+      "file": "ts_fishhook_90_90deg.csv",
+      "rows": 538,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 13.425,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2"
+      ]
+    },
+    {
+      "file": "ts_ss100_120deg.csv",
+      "rows": 489,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 12.2,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2",
+        "Ay_2",
+        "Yaw",
+        "Yaw_2"
+      ]
+    },
+    {
+      "file": "ts_ss100_60deg.csv",
+      "rows": 601,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 15.0,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2",
+        "Ay_2",
+        "Yaw",
+        "Yaw_2"
+      ]
+    },
+    {
+      "file": "ts_ss100_90deg.csv",
+      "rows": 511,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 12.75,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2",
+        "Ay_2",
+        "Yaw",
+        "Yaw_2"
+      ]
+    },
+    {
+      "file": "ts_ss60_120deg.csv",
+      "rows": 601,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 15.0,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2",
+        "Ay_2",
+        "Yaw",
+        "Yaw_2"
+      ]
+    },
+    {
+      "file": "ts_ss60_180deg.csv",
+      "rows": 523,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 13.05,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2",
+        "Ay_2",
+        "Yaw",
+        "Yaw_2"
+      ]
+    },
+    {
+      "file": "ts_ss70_120deg.csv",
+      "rows": 561,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 14.0,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2",
+        "Ay_2",
+        "Yaw",
+        "Yaw_2"
+      ]
+    },
+    {
+      "file": "ts_ss70_180deg.csv",
+      "rows": 498,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 12.425,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2",
+        "Ay_2",
+        "Yaw",
+        "Yaw_2"
+      ]
+    },
+    {
+      "file": "ts_ss80_120deg.csv",
+      "rows": 514,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 12.825,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2"
+      ]
+    },
+    {
+      "file": "ts_ss80_60deg.csv",
+      "rows": 601,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 15.0,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2"
+      ]
+    },
+    {
+      "file": "ts_ss80_90deg.csv",
+      "rows": 601,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 15.0,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2",
+        "Ay_2",
+        "Yaw",
+        "Yaw_2"
+      ]
+    },
+    {
+      "file": "ts_ss90_120deg.csv",
+      "rows": 498,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 12.425,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2",
+        "Ay_2",
+        "Yaw",
+        "Yaw_2"
+      ]
+    },
+    {
+      "file": "ts_ss90_90deg.csv",
+      "rows": 531,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 13.25,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2",
+        "Ay_2",
+        "Yaw",
+        "Yaw_2"
+      ]
+    },
+    {
+      "file": "ts_super90_n2.csv",
+      "rows": 601,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 15.0,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2"
+      ]
+    },
+    {
+      "file": "ts_super90_n4.csv",
+      "rows": 601,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 15.0,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2"
+      ]
+    },
+    {
+      "file": "ts_super90_n6.csv",
+      "rows": 601,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 15.0,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2"
+      ]
+    },
+    {
+      "file": "ts_super90_p0.csv",
+      "rows": 601,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 15.0,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2"
+      ]
+    },
+    {
+      "file": "ts_super90_p2.csv",
+      "rows": 601,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 15.0,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2"
+      ]
+    },
+    {
+      "file": "ts_super90_p4.csv",
+      "rows": 574,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 14.325,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2"
+      ]
+    },
+    {
+      "file": "ts_super90_p6.csv",
+      "rows": 566,
+      "dt_median": 0.025000000000000355,
+      "dt_min": 0.02499999999999858,
+      "dt_max": 0.025000000000000355,
+      "end_s": 14.125,
+      "columns": [
+        "Time",
+        "Vx",
+        "Ay",
+        "AVz",
+        "Roll_E_2",
+        "Steer_SW",
+        "Fz_L1",
+        "Fz_L2",
+        "Fz_R1",
+        "Fz_R2"
+      ]
+    }
+  ],
+  "geometry": {
+    "volume_m3": 58.90486225480862,
+    "mass_70pct_density780_kg": 32162.0547911255,
+    "volume_fill_20000kg_density780": 0.4352955708496283
+  }
+}

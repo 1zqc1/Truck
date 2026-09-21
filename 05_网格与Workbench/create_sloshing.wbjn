@@ -1,0 +1,5 @@
+SetScriptVersion(Version="24.2.0")
+template = GetTemplate(TemplateName="FLUENT")
+system = template.CreateSystem()
+system.DisplayText = "Tank Sloshing 2D"
+Save(FilePath="C:/Users/LENOVO/Documents/Codex/2026-09-09/new-chat/outputs/tank_sloshing_2d.wbpj", Overwrite=False)

@@ -1,0 +1,9 @@
+claim_id,location,claim_type,claim_summary,evidence_ids,support_level,alignment_issue,limitation,requested_action
+CLAIM-OLD-001,现有项目结果,generalization,现有神经网络结果已经证明模型可跨充液率和跨工况泛化,CODE-PROCESS-078-098,unsupported,scope,全数据标准化且高度重叠滑窗随机划分导致测试泄漏，旧数据也没有充液率留出设计,废弃旧性能数字作为论文证据并按完整场景重新冻结划分
+CLAIM-NOV-001,拟议创新表述,other,本文首次研究多充液率液罐车侧翻或首次将充液率加入预警,LIT-QI-2023;LIT-CEP-2025;LIT-IFAC-2026,unsupported,scope,既有工作已覆盖多液位建模、状态参数估计和五种充液率物理信息学习,删除首次表述并改为明确的误差传播与留出验证问题
+CLAIM-NOV-002,拟议创新表述,methods,本文首次采用CFD与车辆动力学耦合研究液罐车侧翻,LIT-LI-2023;LIT-VSD-2025,unsupported,scope,既有研究已采用Fluent标定等效模型并出现双向同步车液耦合,将CFD定位为证据层而不是创新本身
+CLAIM-PROP-001,核心贡献一,mechanistic,简化晃动模型的载荷幅值和相位误差会以可量化方式传播为指定挂车轴组LTR越阈时刻误差,,not_assessed,uncertainty,当前尚无独立液体基准和成对的车辆响应证据,按同一工况同一初值建立高保真参考与降阶模型的误差传播链并报告区间和反例
+CLAIM-PROP-002,核心贡献二,prediction,物理残差修正在未见充液率和未见操纵上可在固定误报约束下改善有效提前量,,not_assessed,uncertainty,当前没有冻结的跨充液率测试或事件级评估，改善可能落入场景变异范围,训练前冻结场景族并以场景为统计单位比较效果差及百分之九十五区间
+CLAIM-PROP-003,保底贡献,generalization,经独立基准验证的充液率参数化降阶模型可给出明确的有效域与失效边界,LIT-WANG-2024;LIT-DAMPED-2025,not_assessed,scope,既有文献支持建模必要性但不能替代本项目对指定罐体和油品的验证,完成多充液率多频比盲测并只对已测试范围作条件性结论
+CLAIM-SCOPE-001,外推边界,generalization,二维无挡板横向晃动CFD足以证明三维分舱油罐车的实车侧翻预警有效,PROJECT-CFD-2D,unsupported,population,二维单位深度流体响应不能覆盖轴向非均匀、挡板、纵向激励、车辆反馈和实车轮荷,增加至少一个三维代表性复核并把结论限定为指定数值基准
+CLAIM-FILL-001,充液率结论,causal,百分之七十充液率普遍是油罐车最危险装载状态,LIT-DAMPED-2025;LIT-HE-2024,partly_supported,scope,危险充液率取决于体积率或液深比定义、罐体几何、激励频率、油品、质量质心和评价指标,不得设为先验结论，应把充液率作为连续设计变量并报告条件性风险图

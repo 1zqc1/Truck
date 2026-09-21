@@ -1,0 +1,13 @@
+item_id,category,item,status,evidence_required,blocking
+DF-001,object,"Target vehicle and trailer unit fixed",UNRESOLVED,"vehicle specification or model source",YES
+DF-002,object,"Tank cross-section compartments baffles and effective volume fixed",UNRESOLVED,"drawing or measured geometry",YES
+DF-003,fluid,"Target oil temperature density and viscosity range fixed",UNRESOLVED,"datasheet or measurement record",YES
+DF-004,consistency,"Cargo mass fill fraction center of mass and inertia close consistently",UNRESOLVED,"calculation sheet with units",YES
+DF-005,coordinates,"Fluent-to-vehicle axis sign and moment reference point fixed",UNRESOLVED,"coordinate diagram and unit-load test",YES
+DF-006,baseline,"Rigid vehicle static axle loads and steady-turn response verified",UNRESOLVED,"baseline run report",YES
+DF-007,fluid-validation,"Independent slosh benchmark selected",UNRESOLVED,"bench protocol or public full-text dataset",YES
+DF-008,numerics,"Three-mesh and three-time-step plan frozen",UNRESOLVED,"case matrix and acceptance variables",YES
+DF-009,endpoint,"One primary endpoint selected and event rule frozen",UNRESOLVED,"preregistered event definition",YES
+DF-010,partition,"Scenario-family train validation and locked-test lists frozen",UNRESOLVED,"read-only split manifest",YES
+DF-011,uncertainty,"Measurement and numerical uncertainty budget drafted",DRAFT,"calibration and numerical sensitivity records",YES
+DF-012,journal,"CAS partition policy and candidate journal verified for submission year",UNRESOLVED,"institutional database screenshot",NO

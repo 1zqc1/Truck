@@ -1,0 +1,14 @@
+SetScriptVersion(Version="24.2.133")
+
+system = GetSystem(Name="FFF")
+mesh_container = system.GetContainer(ComponentName="Mesh")
+mesh_container.SendCommand(Command="""
+mesh = Model.Mesh
+mesh.ElementSize = Quantity("25 [mm]")
+mesh.GenerateMesh()
+""")
+
+mesh_component = system.GetComponent(Name="Mesh")
+mesh_component.Update(AllDependencies=True)
+
+Save(Overwrite=True)
