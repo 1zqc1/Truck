@@ -44,7 +44,15 @@ def settling_time(time: np.ndarray, values: np.ndarray, target: float, tolerance
 
 
 df = pd.read_csv(CSV_PATH, usecols=CHANNELS)
-df = df.apply(pd.to_numeric, errors="coerce").dropna(subset=["Time"])
+df = df.apply(pd.to_numeric, errors="coerce")
+invalid = ~np.isfinite(df[CHANNELS].to_numpy(dtype=float))
+if invalid.any():
+    bad_columns = [col for col, bad in zip(CHANNELS, invalid.any(axis=0)) if bad]
+    raise ValueError("Non-finite or missing required values in: " + ", ".join(bad_columns))
+if len(df) < 2 or not (df["Time"].diff().iloc[1:] > 0).all():
+    raise ValueError("Time must contain at least two strictly increasing samples")
+if not (df["Time"] >= 10.0).any():
+    raise ValueError("No samples in the post-step window (Time >= 10 s)")
 
 left = df[["Fz_L4", "Fz_L5", "Fz_L6"]].sum(axis=1)
 right = df[["Fz_R4", "Fz_R5", "Fz_R6"]].sum(axis=1)
