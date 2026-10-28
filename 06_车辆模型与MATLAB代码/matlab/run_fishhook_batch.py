@@ -4,6 +4,7 @@ run_fishhook_batch.py —— 批量生成鱼钩工况 TruckSim 数据
 流程: 修改 par 文件的 STEER_SW_TABLE -> 跑 CLI -> 导出 CSV
 """
 import json, struct, subprocess, os, sys
+from batch_integrity import replace_once, file_signature, validate_solver_output
 
 # 路径
 TS_DATA = r'D:\Program Files (x86)\TruckSim\data'
@@ -50,22 +51,23 @@ def gen_fishhook_table(amp, rate=720.0, dwell=0.25, t_start=10.0):
 def run_and_export(speed, amp):
     """跑一次仿真并导出 CSV"""
     table = gen_fishhook_table(amp)
-    par = BASE_PAR.replace(STEP_TABLE, table)
-    par = par.replace('SPEED_TARGET_CONSTANT 100', 'SPEED_TARGET_CONSTANT %d' % speed)
-    par = par.replace('Steering Step Input', 'Steering Fishhook Input')
+    par = replace_once(BASE_PAR, STEP_TABLE, table)
+    par = replace_once(par, 'SPEED_TARGET_CONSTANT 100', 'SPEED_TARGET_CONSTANT %d' % speed)
+    par = replace_once(par, 'Steering Step Input', 'Steering Fishhook Input')
 
     par_path = os.path.join(TS_DATA, 'fishhook_run.par')
     with open(par_path, 'w', encoding='utf-8') as f:
         f.write(par)
 
     # 跑 CLI
+    vsb_path = os.path.join(TS_DATA, 'fishhook.vsb')
+    vs_path = os.path.join(TS_DATA, 'fishhook.vs')
+    old_vsb, old_vs = file_signature(vsb_path), file_signature(vs_path)
     r = subprocess.run([CLI, '-par', par_path, '-datadir', TS_DATA],
                        capture_output=True, text=True, timeout=120)
     # 检查是否有输出
-    vsb_path = os.path.join(TS_DATA, 'fishhook.vsb')
-    vs_path = os.path.join(TS_DATA, 'fishhook.vs')
-    if not os.path.exists(vsb_path):
-        return None
+    validate_solver_output(r.returncode, vsb_path, old_vsb)
+    validate_solver_output(r.returncode, vs_path, old_vs)
 
     # 读通道定义
     with open(vs_path, 'r', encoding='utf-8') as f:

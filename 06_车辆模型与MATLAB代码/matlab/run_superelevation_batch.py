@@ -6,6 +6,7 @@ run_superelevation_batch.py —— 批量生成横坡（超高）工况 TruckSim
 流程: 生成 dZ Map -> 插入 par -> 跑 CLI -> 导出 CSV
 """
 import json, struct, subprocess, os, sys
+from batch_integrity import replace_once, file_signature, validate_solver_output
 
 TS_DATA = r'D:\Program Files (x86)\TruckSim\data'
 CLI = r'D:\Program Files (x86)\TruckSim\TruckSim2022.1_Prog\Programs\VS_SolverWrapper_CLI_64.exe'
@@ -50,8 +51,8 @@ EXIT_PARSFILE Roads\\\\dZ_Map\\\\RdMapZ_crossslope.par
 def run_and_export(pct, steer_angle=90):
     """跑一次横坡仿真并导出"""
     block = make_dzmap_block(pct)
-    par = BASE_PAR.replace(ANCHOR, ANCHOR + '\n' + block, 1)
-    par = par.replace('SPEED_TARGET_CONSTANT 100', 'SPEED_TARGET_CONSTANT 80')
+    par = replace_once(BASE_PAR, ANCHOR, ANCHOR + '\n' + block)
+    par = replace_once(par, 'SPEED_TARGET_CONSTANT 100', 'SPEED_TARGET_CONSTANT 80')
     # 阶跃转向改为指定角度（默认90度临界工况）
     step_table = '''STEER_SW_TABLE LINEAR
 0, 0
@@ -59,20 +60,21 @@ def run_and_export(pct, steer_angle=90):
 10.1, %d
 11, %d
 ENDTABLE''' % (steer_angle, steer_angle)
-    import re
-    par = re.sub(r'STEER_SW_TABLE LINEAR\n0, 0\n10, 0\n10\.1, 120\n11, 120\nENDTABLE', step_table, par)
+    original_step = 'STEER_SW_TABLE LINEAR\n0, 0\n10, 0\n10.1, 120\n11, 120\nENDTABLE'
+    par = replace_once(par, original_step, step_table)
 
     par_path = os.path.join(TS_DATA, 'super_run.par')
     with open(par_path, 'w', encoding='utf-8') as f:
         f.write(par)
 
+    vsb_path = os.path.join(TS_DATA, 'super.vsb')
+    vs_path = os.path.join(TS_DATA, 'super.vs')
+    old_vsb, old_vs = file_signature(vsb_path), file_signature(vs_path)
     r = subprocess.run([CLI, '-par', par_path, '-datadir', TS_DATA],
                        capture_output=True, text=True, timeout=120)
 
-    vsb_path = os.path.join(TS_DATA, 'super.vsb')
-    vs_path = os.path.join(TS_DATA, 'super.vs')
-    if not os.path.exists(vsb_path):
-        return None
+    validate_solver_output(r.returncode, vsb_path, old_vsb)
+    validate_solver_output(r.returncode, vs_path, old_vs)
 
     with open(vs_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
