@@ -25,12 +25,21 @@ function [dataset] = data_export(varargin)
     p.addParameter('shuffle', true, @islogical);
     p.addParameter('random_seed', 42, @isnumeric);
     p.addParameter('export_csv', true, @islogical);
+    p.addParameter('overwrite', false, @(x) islogical(x) && isscalar(x));
     p.parse(varargin{:});
     args = p.Results;
 
     %% 初始化
     init_params;
-    rng(args.random_seed);
+    if ~args.overwrite && (exist(output.mat_file, 'file') || ...
+            exist(fullfile(output.data_dir, 'normalization_params.mat'), 'file'))
+        error('ftinspect:OutputExists', 'Output already exists; choose a new directory or explicitly set overwrite=true.');
+    end
+    if ~args.overwrite && args.export_csv && any(cellfun(@(f) exist(fullfile(output.csv_dir, f), 'file') ~= 0, ...
+            {'dataset_train.csv','dataset_val.csv','dataset_test.csv','dataset_info.txt'}))
+        error('ftinspect:OutputExists', 'CSV output already exists; choose a new directory or explicitly set overwrite=true.');
+    end
+    rng(args.random_seed, 'twister');
 
     %% ==================== 数据读取 ====================
     fprintf('=============================================================\n');
@@ -299,7 +308,7 @@ function export_to_csv(dataset, csv_dir, args)
         end
 
         % 构建数据矩阵
-        X_flat = reshape(X_data, [n_seq, lookback * n_feat]);
+        X_flat = reshape(permute(X_data, [1, 3, 2]), [n_seq, lookback * n_feat]);
         data_matrix = [X_flat, Y_data];
 
         % 写入 CSV

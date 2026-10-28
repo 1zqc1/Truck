@@ -30,6 +30,7 @@ function labeled = calculate_labels(results)
     if numel(Roll) ~= n || numel(AVx) ~= n || any(~isfinite(Roll)) || any(~isfinite(AVx))
         error('ftinspect:MissingFeature', 'Finite Roll and AVx signals are required.');
     end
+    Roll = Roll(:); AVx = AVx(:);
     Vx     = get_field(results, 'Vx', ones(n, 1) * results.speed_kmh / 3.6);
     Steer  = get_field(results, 'Steer', zeros(n, 1));
     Ax     = get_field(results, 'Ax', zeros(n, 1));

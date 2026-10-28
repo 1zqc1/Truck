@@ -1,7 +1,17 @@
 %% process_ts_data.m —— 处理TruckSim CSV → LSTM数据集
 
-function process_ts_data()
-    data_dir = fullfile(fileparts(mfilename('fullpath')), '..', 'simulation_data');
+function dataset = process_ts_data(data_dir, overwrite)
+    if nargin < 1
+        data_dir = fullfile(fileparts(mfilename('fullpath')), '..', 'simulation_data');
+    end
+    if nargin < 2, overwrite = false; end
+    if ~islogical(overwrite) || ~isscalar(overwrite)
+        error('ftinspect:InvalidInput', 'overwrite must be a logical scalar.');
+    end
+    if ~overwrite && (exist(fullfile(data_dir, 'ts_dataset.mat'), 'file') || ...
+                      exist(fullfile(data_dir, 'ts_all_runs.mat'), 'file'))
+        error('ftinspect:OutputExists', 'Output already exists. Use a new directory or explicitly set overwrite=true.');
+    end
     files = dir(fullfile(data_dir, 'ts_*.csv'));
 
     all_data = {};

@@ -20,7 +20,7 @@ for k = 1:numel(runs)
         error('ftinspect:InvalidRun', 'Invalid or insufficient data in run %s.', names{k});
     end
 end
-rng(seed);
+rng(seed, 'twister');
 order = randperm(numel(runs));
 n_train = max(1, floor(0.6 * numel(runs)));
 n_val = max(1, floor(0.2 * numel(runs)));
