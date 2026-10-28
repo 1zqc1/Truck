@@ -10,34 +10,37 @@ function process_ts_data()
         T = readtable(fp, 'VariableNamingRule', 'preserve');
         cols = T.Properties.VariableNames;
 
-        % 跳过不含Ay列的旧格式CSV
-        if ~any(contains(cols, 'Ay')) || ~any(contains(cols, 'Vx'))
-            fprintf('跳过(格式不兼容): %s\n', files(f).name);
-            continue;
+        required = {'Time','Vx','Ay','AVz','Roll_E_2','Steer_SW', ...
+                    'Fz_L4','Fz_L5','Fz_L6','Fz_R4','Fz_R5','Fz_R6'};
+        if ~all(ismember(required, cols))
+            missing = required(~ismember(required, cols));
+            error('ftinspect:MissingChannel', '%s: missing required columns: %s', fp, strjoin(missing, ', '));
         end
-
-        g = @(pat) find(contains(cols, pat), 1);
-        gv = @(pat) T{:, g(pat)};  % get column values
-        gv0 = @(pat) zeros(height(T),1);  % default to zeros
-        safe_get = @(pat) conditional_get(T, cols, pat);
-
-        t = gv('Time');
-        vx = safe_get('Vx');
-        ay = safe_get('Ay');
-        avz = safe_get('AVz');
-        roll2 = safe_get('Roll_E_2');
-        sw = safe_get('Steer_SW');
-        fzl = safe_get('Fz_L1') + safe_get('Fz_L2');
-        fzr = safe_get('Fz_R1') + safe_get('Fz_R2');
-        ltr = (fzl - fzr) ./ (fzl + fzr + 1);
-
+        values = T{:, required};
+        if ~isnumeric(values) || any(~isfinite(values(:)))
+            error('ftinspect:InvalidInput', '%s: required data must be finite numeric values.', fp);
+        end
+        t = values(:,1); vx = values(:,2); ay = values(:,3); avz = values(:,4);
+        roll2 = values(:,5); sw = values(:,6); wheel = values(:,7:12);
+        if numel(t) < 2 || any(diff(t) <= 0) || any(wheel(:) < 0)
+            error('ftinspect:InvalidInput', '%s: time must increase and wheel loads must be nonnegative.', fp);
+        end
         dt = mean(diff(t));
+        if any(abs(diff(t) - dt) > max(1e-9, abs(dt)*1e-4))
+            error('ftinspect:InvalidInput', '%s: sample spacing must be uniform.', fp);
+        end
+        fzl = sum(wheel(:,1:3), 2); fzr = sum(wheel(:,4:6), 2);
+        if any(fzl + fzr <= 1e-6)
+            error('ftinspect:InvalidInput', '%s: total trailer wheel load is zero.', fp);
+        end
+        ltr = (fzr - fzl) ./ (fzl + fzr);
+
         droll = [0; diff(roll2)] / dt;
         roll_th = 25;
         ttr = 3 * ones(size(roll2));
         for i = 1:length(roll2)
             if abs(roll2(i)) >= roll_th, ttr(i) = 0;
-            elseif abs(droll(i)) > 0.01
+            elseif sign(roll2(i)) * droll(i) > 0.01
                 ttr(i) = min(3, (roll_th - abs(roll2(i))) / abs(droll(i)));
             end
         end
@@ -53,62 +56,24 @@ function process_ts_data()
 
     %% LSTM序列构建
     lookback = 50; horizon = 10;
-    X_all = {}; Y_all = {};
+    runs = {};
 
     for d = 1:length(all_data)
         s = all_data{d};
         F = [s.Ay, s.AVz, s.Roll2, s.Vx, s.Steer_SW];
         L = s.LTR;
         N = size(F,1);
-        if N < lookback+horizon, continue; end
-        for i = 1:N-lookback-horizon+1
-            X_all{end+1} = F(i:i+lookback-1, :);
-            Y_all{end+1} = L(i+lookback:i+lookback+horizon-1)';
+        if N < lookback+horizon
+            error('ftinspect:InvalidInput', '%s: not enough samples.', s.name);
         end
+        runs{end+1} = struct('name', s.name, 'features', F, 'target', L); %#ok<AGROW>
     end
 
-    N = length(X_all);
-    X_arr = zeros(N, lookback, 5);
-    Y_arr = zeros(N, horizon);
-    for i = 1:N
-        X_arr(i,:,:) = X_all{i};
-        Y_arr(i,:) = Y_all{i};
-    end
-
-    % 归一化
-    Xf = reshape(X_arr, [N*lookback, 5]);
-    mu = mean(Xf, 1, 'omitnan');
-    sg = std(Xf, 0, 1, 'omitnan');
-    sg(sg < 1e-8) = 1;
-    X_arr = (X_arr - reshape(mu, [1,1,5])) ./ reshape(sg, [1,1,5]);
-
-    ok = ~any(any(isnan(X_arr),3),2) & ~any(isnan(Y_arr),2);
-    X_arr = X_arr(ok,:,:); Y_arr = Y_arr(ok,:);
-    N = size(X_arr,1);
-
-    danger_pct = 100 * sum(any(abs(Y_arr) >= 0.7, 2)) / N;
-    fprintf('\n有效样本:%d 危险占比:%.1f%%\n', N, danger_pct);
-
-    rng(42); perm = randperm(N);
-    X_arr = X_arr(perm,:,:); Y_arr = Y_arr(perm,:);
-    nt = round(0.6*N); nv = round(0.2*N);
-
-    dataset.train.X = X_arr(1:nt,:,:);      dataset.train.Y = Y_arr(1:nt,:);
-    dataset.val.X   = X_arr(nt+1:nt+nv,:,:); dataset.val.Y   = Y_arr(nt+1:nt+nv,:);
-    dataset.test.X  = X_arr(nt+nv+1:end,:,:); dataset.test.Y  = Y_arr(nt+nv+1:end,:);
-    dataset.mu = mu; dataset.sg = sg; dataset.lookback = lookback; dataset.horizon = horizon;
+    dataset = build_ts_dataset(runs, lookback, horizon, 42);
     dataset.feat_names = {'Ay','AVz','Roll2','Vx','Steer_SW'};
 
     save(fullfile(data_dir, 'ts_dataset.mat'), 'dataset', '-v7.3');
     save(fullfile(data_dir, 'ts_all_runs.mat'), 'all_data', '-v7.3');
-    fprintf('训练:%d 验证:%d 测试:%d\n数据集已保存\n', nt, nv, N-nt-nv);
-end
-
-function v = conditional_get(T, cols, pat)
-    idx = find(contains(cols, pat), 1);
-    if isempty(idx)
-        v = zeros(height(T), 1);
-    else
-        v = T{:, idx};
-    end
+    fprintf('训练:%d 验证:%d 测试:%d\n数据集已保存\n', ...
+        size(dataset.train.X, 1), size(dataset.val.X, 1), size(dataset.test.X, 1));
 end

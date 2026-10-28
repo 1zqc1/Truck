@@ -57,6 +57,7 @@ function [dataset] = data_export(varargin)
     all_Y_cls = {};  % LTR 分类标签
     all_Y_ttr = {};  % TTR 标签
     all_meta = {};   % 元数据
+    all_run_ids = {};
 
     fprintf('\n  处理仿真数据...\n');
 
@@ -74,6 +75,9 @@ function [dataset] = data_export(varargin)
 
         % 提取特征矩阵 [n_samples × n_features]
         X = extract_features(labeled, args.feature_list);
+        if any(~isfinite(X(:))) || any(~isfinite(labeled.LTR(:))) || any(~isfinite(labeled.TTR(:)))
+            error('ftinspect:InvalidInput', 'Run %s contains non-finite features or labels.', mat_files(f).name);
+        end
         n_samples = size(X, 1);
 
         if n_samples < args.lookback + args.horizon
@@ -94,9 +98,11 @@ function [dataset] = data_export(varargin)
         all_Y_reg{end+1} = Y_reg_seq;
         all_Y_cls{end+1} = Y_cls_seq;
         all_Y_ttr{end+1} = Y_ttr_seq;
+        all_run_ids{end+1} = repmat(f, size(X_seq, 1), 1);
 
         % 元数据
         all_meta{end+1} = struct(...
+            'run_id', f, ...
             'filename', mat_files(f).name, ...
             'maneuver', labeled.meta.maneuver, ...
             'speed', labeled.meta.speed_kmh, ...
@@ -115,6 +121,7 @@ function [dataset] = data_export(varargin)
     Y_reg_all = cat(1, all_Y_reg{:}); % [N_seq × horizon]
     Y_cls_all = cat(1, all_Y_cls{:}); % [N_seq × horizon]
     Y_ttr_all = cat(1, all_Y_ttr{:}); % [N_seq × horizon]
+    run_ids = cat(1, all_run_ids{:});
 
     n_total = size(X_all, 1);
     fprintf('\n  总样本数: %d\n', n_total);
@@ -127,13 +134,16 @@ function [dataset] = data_export(varargin)
     fprintf('  危险标签占比 (class=2): %.2f%%\n', danger_ratio * 100);
     fprintf('  预警标签占比 (class≥1): %.2f%%\n', warning_ratio * 100);
 
+    %% ==================== 按完整仿真运行划分 ====================
+    [idx_train, idx_val, idx_test] = split_run_indices(run_ids, args.split_ratio, args.shuffle);
+
     %% ==================== 数据归一化 ====================
     norm_params = struct();
     if args.normalize
         fprintf('\n  正在进行 Z-score 归一化...\n');
 
         % 对每个特征计算均值和标准差（仅用训练集）
-        X_2d = reshape(X_all, [n_total * args.lookback, length(args.feature_list)]);
+        X_2d = reshape(X_all(idx_train,:,:), [numel(idx_train) * args.lookback, length(args.feature_list)]);
         norm_params.mean = mean(X_2d, 1);
         norm_params.std  = std(X_2d, 0, 1);
         norm_params.std(norm_params.std < 1e-8) = 1;  % 避免除零
@@ -152,21 +162,6 @@ function [dataset] = data_export(varargin)
     %% ==================== 数据集划分 ====================
     fprintf('\n  数据集划分 (训练:验证:测试 = %.0f:%.0f:%.0f)...\n', ...
         args.split_ratio(1)*100, args.split_ratio(2)*100, args.split_ratio(3)*100);
-
-    if args.shuffle
-        perm = randperm(n_total);
-        X_all     = X_all(perm, :, :);
-        Y_reg_all = Y_reg_all(perm, :);
-        Y_cls_all = Y_cls_all(perm, :);
-        Y_ttr_all = Y_ttr_all(perm, :);
-    end
-
-    n_train = round(n_total * args.split_ratio(1));
-    n_val   = round(n_total * args.split_ratio(2));
-
-    idx_train = 1:n_train;
-    idx_val   = (n_train+1):(n_train+n_val);
-    idx_test  = (n_train+n_val+1):n_total;
 
     dataset = struct();
     dataset.train.X            = X_all(idx_train, :, :);
@@ -188,6 +183,10 @@ function [dataset] = data_export(varargin)
     dataset.feature_names      = args.feature_list;
     dataset.norm_params        = norm_params;
     dataset.class_labels       = {'safe', 'warning', 'danger'};
+    dataset.train.run_ids      = unique(run_ids(idx_train));
+    dataset.val.run_ids        = unique(run_ids(idx_val));
+    dataset.test.run_ids       = unique(run_ids(idx_test));
+    dataset.run_metadata       = all_meta;
 
     fprintf('  训练集: %d 样本\n', length(idx_train));
     fprintf('  验证集: %d 样本\n', length(idx_val));
@@ -230,7 +229,7 @@ function X = extract_features(labeled, feature_list)
         if isfield(labeled.features, feat_name)
             X(:, i) = labeled.features.(feat_name);
         else
-            warning('特征 "%s" 不存在，填充为 0', feat_name);
+            error('ftinspect:MissingFeature', 'Required feature "%s" is missing.', feat_name);
         end
     end
 end

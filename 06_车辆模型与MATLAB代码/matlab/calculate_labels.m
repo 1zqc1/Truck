@@ -14,27 +14,36 @@ function labeled = calculate_labels(results)
     %% ==================== 数据准备 ====================
     t      = results.t;
     n      = length(t);
+    if n < 2 || any(~isfinite(t)) || any(diff(t) <= 0)
+        error('ftinspect:InvalidTime', 'Time must contain at least two finite, strictly increasing samples.');
+    end
     dt     = mean(diff(t));
+    if any(abs(diff(t) - dt) > max(1e-9, abs(dt)*1e-4))
+        error('ftinspect:InvalidTime', 'Time samples must be uniformly spaced.');
+    end
 
     % 提取关键信号
     Ay     = get_field(results, 'Ay', zeros(n, 1));
     AVz    = get_field(results, 'AVz', zeros(n, 1));
-    Roll   = get_field(results, 'Roll', zeros(n, 1));
-    AVx    = get_field(results, 'AVx', zeros(n, 1));
+    Roll   = get_field(results, 'Roll', []);
+    AVx    = get_field(results, 'AVx', []);
+    if numel(Roll) ~= n || numel(AVx) ~= n || any(~isfinite(Roll)) || any(~isfinite(AVx))
+        error('ftinspect:MissingFeature', 'Finite Roll and AVx signals are required.');
+    end
     Vx     = get_field(results, 'Vx', ones(n, 1) * results.speed_kmh / 3.6);
     Steer  = get_field(results, 'Steer', zeros(n, 1));
     Ax     = get_field(results, 'Ax', zeros(n, 1));
 
     %% ==================== LTR 实时计算 ====================
     % LTR = (FzL - FzR) / (FzL + FzR)
-    % 对挂车各轴分别计算，取最大值
+    % 挂车第 4–6 轴六轮合计；不代表单轴最大 LTR
     % LTR ∈ [-1, 1]，|LTR| → 1 表示载荷完全转移
 
-    [LTR_axle, LTR_max] = compute_ltr(results, n);
-    LTR = LTR_max;  % 取最危险轴的 LTR
+    [~, LTR] = compute_ltr(results, n);
 
     % 平滑 LTR 信号（去除高频噪声）
-    LTR_smooth = movmean(LTR, round(0.1 / dt));  % 100ms 滑动窗口
+    smooth_window = max(1, round(0.1 / dt));
+    LTR_smooth = movmean(LTR, [smooth_window - 1, 0]);  % 因果窗口
 
     %% ==================== TTR 实时计算 ====================
     % 基于侧倾角线性外推计算到侧翻的时间
@@ -47,7 +56,7 @@ function labeled = calculate_labels(results)
 
     for i = 1:n
         if abs(Roll(i)) < roll_threshold
-            if abs(AVx(i)) > 0.001  % 侧倾角速度显著
+            if sign(Roll(i)) * AVx(i) > 0.001  % 朝当前侧危险方向倾斜
                 % 线性外推剩余时间
                 remaining = (roll_threshold - abs(Roll(i))) / abs(AVx(i));
                 % 截断到预测范围内
@@ -61,7 +70,7 @@ function labeled = calculate_labels(results)
     end
 
     % 平滑 TTR
-    TTR_smooth = movmean(TTR, round(0.1 / dt));
+    TTR_smooth = movmean(TTR, [smooth_window - 1, 0]);
     TTR_smooth = min(TTR_smooth, ttr_horizon);
 
     %% ==================== LTR 分类标签 ====================
@@ -157,49 +166,26 @@ end
 %% ==================== LTR 计算函数 ====================
 
 function [LTR_per_axle, LTR_max] = compute_ltr(results, n)
-    % 从垂向轮胎力计算各轴 LTR
-    % 如果 TruckSim 未输出垂向力，则从侧倾角近似估算
+    % 必须使用已核对轴位和符号的挂车六轮竖向力，不以侧倾角替代。
 
     % 尝试获取垂向力数据
-    Fz_L1 = get_field(results, 'Fz_L1', []);
-    Fz_R1 = get_field(results, 'Fz_R1', []);
-    Fz_L2 = get_field(results, 'Fz_L2', []);
-    Fz_R2 = get_field(results, 'Fz_R2', []);
-    Fz_L3 = get_field(results, 'Fz_L3', []);
-    Fz_R3 = get_field(results, 'Fz_R3', []);
-
-    has_force_data = ~isempty(Fz_L1) && ~isempty(Fz_R1);
-
-    if has_force_data
-        % 挂车三轴 LTR
-        if ~isempty(Fz_L3) && ~isempty(Fz_R3)
-            sumL_trailer = Fz_L1 + Fz_L2 + Fz_L3;
-            sumR_trailer = Fz_R1 + Fz_R2 + Fz_R3;
-        else
-            sumL_trailer = Fz_L1 + Fz_L2;
-            sumR_trailer = Fz_R1 + Fz_R2;
+    names = {'Fz_L4','Fz_L5','Fz_L6','Fz_R4','Fz_R5','Fz_R6'};
+    wheel = zeros(n, 6);
+    for j = 1:numel(names)
+        v = get_field(results, names{j}, []);
+        if numel(v) ~= n || any(~isfinite(v)) || any(v < 0)
+            error('ftinspect:MissingWheelLoad', 'Required finite nonnegative wheel load %s is missing or invalid.', names{j});
         end
-        LTR_trailer = (sumL_trailer - sumR_trailer) ./ ...
-                      (sumL_trailer + sumR_trailer + 1e-6);
-        LTR_per_axle = LTR_trailer;
-        LTR_max = LTR_trailer;
-    else
-        % 基于侧倾角和稳定杆模型近似 LTR
-        % LTR ≈ 2 * (K_roll * φ) / (m * g * track)
-        init_params;
-        g     = ldp.g;
-        track = veh.trailer.track;
-        K_roll = (veh.trailer.susp.stiffness * track^2 / 2 ...
-                 + veh.trailer.susp.anti_roll) * 3;  % 三轴
-        mass  = veh.trailer.total_mass;
-        Roll  = get_field(results, 'Roll', zeros(n, 1));
-
-        LTR_est = 2 * K_roll .* abs(Roll) / (mass * g * track);
-        LTR_est = min(abs(LTR_est), 1);  % 限幅
-
-        LTR_per_axle = LTR_est .* sign(Roll);
-        LTR_max = LTR_per_axle;
+        wheel(:,j) = v(:);
     end
+    sumL_trailer = sum(wheel(:,1:3), 2);
+    sumR_trailer = sum(wheel(:,4:6), 2);
+    if any(sumL_trailer + sumR_trailer <= 1e-6)
+        error('ftinspect:InvalidWheelLoad', 'Total trailer wheel load must be positive.');
+    end
+    LTR_trailer = (sumR_trailer - sumL_trailer) ./ (sumR_trailer + sumL_trailer);
+    LTR_per_axle = LTR_trailer;
+    LTR_max = LTR_trailer;
 end
 
 

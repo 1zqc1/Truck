@@ -23,6 +23,9 @@ function train_lstm_ts()
     danger = abs(Yt(:,end)) >= 0.7;
     safe = ~danger;
     n_danger = sum(danger); n_safe = sum(safe);
+    if n_danger == 0
+        error('ftinspect:NoDangerSamples', 'Training split contains no dangerous samples; model cannot be evaluated for danger recognition.');
+    end
     n_repeat = max(0, round(n_safe * 0.3 / 0.7) - n_danger);
     if n_repeat > 0
         d_idx = find(danger);
